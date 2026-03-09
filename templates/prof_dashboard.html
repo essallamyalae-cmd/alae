@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="mb-3">Dashboard professeur</h1>
+<div class="card shadow-sm mb-4"><div class="card-body">
+  <h5>Bienvenue {{ professeur.prenom }} {{ professeur.nom }}</h5>
+  <p class="text-muted mb-0">Vous voyez uniquement les modules qui vous sont affectés.</p>
+</div></div>
+<div class="row g-3">
+  {% for m in modules %}
+  <div class="col-md-6 col-xl-4"><div class="card shadow-sm h-100"><div class="card-body">
+    <h5>{{ m.nom }}</h5>
+    <p class="text-muted">{{ m.code }} · {{ m.semestre.libelle }}</p>
+    <a class="btn btn-outline-primary btn-sm" href="{{ url_for('absence_entry', module_id=m.id) }}">Absences</a>
+    <a class="btn btn-primary btn-sm" href="{{ url_for('note_entry', module_id=m.id) }}">Notes</a>
+  </div></div></div>
+  {% endfor %}
+</div>
+{% endblock %}

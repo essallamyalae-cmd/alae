@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="mb-3">Étudiants abandonnés</h1>
+<div class="card shadow-sm"><div class="card-body table-responsive">
+<table class="table"><thead><tr><th>Nom</th><th>Prénom</th><th>Groupe</th><th>Email</th><th>Statut</th></tr></thead>
+<tbody>{% for e in etudiants %}<tr><td>{{ e.nom }}</td><td>{{ e.prenom }}</td><td>{{ e.groupe.nom }}</td><td>{{ e.email_academique }}</td><td><span class="badge bg-danger">abandonné</span></td></tr>{% else %}<tr><td colspan="5">Aucun abandon enregistré</td></tr>{% endfor %}</tbody>
+</table>
+</div></div>
+{% endblock %}

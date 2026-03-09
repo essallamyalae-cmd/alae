@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="mb-3">Statistiques décisionnelles</h1>
+<div class="row g-3 mb-4">
+  <div class="col-md-4"><div class="card stat-card"><div class="card-body"><h6>Taux d'absence global</h6><h3>{{ taux_global }}</h3></div></div></div>
+</div>
+<div class="row g-4">
+  <div class="col-xl-6"><div class="card shadow-sm"><div class="card-body"><h5>Absences par groupe</h5><canvas id="groupChart"></canvas></div></div></div>
+  <div class="col-xl-6"><div class="card shadow-sm"><div class="card-body"><h5>Corrélation absences / notes</h5><canvas id="corrChart"></canvas></div></div></div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+createBarChart('groupChart', {{ absence_by_group|map(attribute=0)|list|tojson }}, {{ absence_by_group|map(attribute=1)|list|tojson }}, 'Absences');
+createScatterLikeChart('corrChart', {{ corr_data|map(attribute=1)|list|tojson }}, {{ corr_data|map(attribute=2)|list|tojson }}, {{ corr_data|map(attribute=0)|list|tojson }});
+</script>
+{% endblock %}

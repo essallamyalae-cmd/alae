@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h1>Gestion des étudiants</h1>
+</div>
+<div class="row g-4">
+  <div class="col-12 col-lg-4">
+    <div class="card shadow-sm"><div class="card-body">
+      <h5>Ajouter un étudiant</h5>
+      <form method="post" class="row g-2">
+        <div class="col-12"><input name="code_apogee" class="form-control" placeholder="Code Apogée" required></div>
+        <div class="col-6"><input name="nom" class="form-control" placeholder="Nom" required></div>
+        <div class="col-6"><input name="prenom" class="form-control" placeholder="Prénom" required></div>
+        <div class="col-12"><input name="email_academique" class="form-control" placeholder="Email académique" required></div>
+        <div class="col-12"><input name="photo" class="form-control" placeholder="URL photo"></div>
+        <div class="col-12">
+          <select name="groupe_id" class="form-select" required>
+            <option value="">Choisir groupe</option>
+            {% for g in groupes %}<option value="{{ g.id }}">{{ g.nom }}</option>{% endfor %}
+          </select>
+        </div>
+        <div class="col-12"><button class="btn btn-primary w-100">Ajouter</button></div>
+      </form>
+    </div></div>
+  </div>
+  <div class="col-12 col-lg-8">
+    <div class="card shadow-sm"><div class="card-body table-responsive">
+      <table class="table align-middle">
+        <thead><tr><th>Photo</th><th>Nom</th><th>Prénom</th><th>Groupe</th><th>Email</th><th>Statut</th></tr></thead>
+        <tbody>
+          {% for e in etudiants %}
+          <tr>
+            <td><img src="{{ e.photo }}" class="student-photo"></td>
+            <td>{{ e.nom }}</td><td>{{ e.prenom }}</td><td>{{ e.groupe.nom }}</td><td>{{ e.email_academique }}</td>
+            <td><span class="badge {% if e.statut == 'actif' %}bg-success{% else %}bg-danger{% endif %}">{{ e.statut }}</span></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div></div>
+  </div>
+</div>
+{% endblock %}

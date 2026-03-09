@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard Administration{% endblock %}
+{% block content %}
+<h1 class="mb-4">Dashboard administration</h1>
+<div class="row g-3 mb-4">
+  <div class="col-6 col-lg-3"><div class="card stat-card"><div class="card-body"><h6>Étudiants actifs</h6><h3>{{ total_students }}</h3></div></div></div>
+  <div class="col-6 col-lg-3"><div class="card stat-card"><div class="card-body"><h6>Professeurs</h6><h3>{{ total_profs }}</h3></div></div></div>
+  <div class="col-6 col-lg-3"><div class="card stat-card"><div class="card-body"><h6>Modules</h6><h3>{{ total_modules }}</h3></div></div></div>
+  <div class="col-6 col-lg-3"><div class="card stat-card danger"><div class="card-body"><h6>Abandons</h6><h3>{{ abandoned }}</h3></div></div></div>
+</div>
+<div class="row g-4">
+  <div class="col-12 col-xl-6">
+    <div class="card shadow-sm"><div class="card-body"><h5>Absences par module</h5><canvas id="moduleAbsChart"></canvas></div></div>
+  </div>
+  <div class="col-12 col-xl-6">
+    <div class="card shadow-sm"><div class="card-body"><h5>Moyenne des notes par module</h5><canvas id="moduleNotesChart"></canvas></div></div>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+createBarChart('moduleAbsChart', {{ absence_by_module|map(attribute=0)|list|tojson }}, {{ absence_by_module|map(attribute=1)|list|tojson }}, 'Absences');
+createBarChart('moduleNotesChart', {{ avg_notes|map(attribute=0)|list|tojson }}, {{ avg_notes|map(attribute=1)|list|tojson }}, 'Moyenne');
+</script>
+{% endblock %}

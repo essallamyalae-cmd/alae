@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="mb-3">Gestion des modules</h1>
+<div class="row g-4">
+  <div class="col-lg-5">
+    <div class="card shadow-sm"><div class="card-body">
+      <form method="post" class="row g-2">
+        <div class="col-4"><input name="code" class="form-control" placeholder="Code" required></div>
+        <div class="col-8"><input name="nom" class="form-control" placeholder="Nom module" required></div>
+        <div class="col-6"><select name="semestre_id" class="form-select" required><option value="">Semestre</option>{% for s in semestres %}<option value="{{ s.id }}">{{ s.libelle }}</option>{% endfor %}</select></div>
+        <div class="col-6"><select name="filiere_id" class="form-select" required><option value="">Filière</option>{% for f in filieres %}<option value="{{ f.id }}">{{ f.nom }}</option>{% endfor %}</select></div>
+        <div class="col-6"><input name="heures_cours" type="number" class="form-control" placeholder="Heures cours"></div>
+        <div class="col-6"><input name="heures_tp" type="number" class="form-control" placeholder="Heures TP"></div>
+        <div class="col-3"><input name="semaine_debut_cours" type="number" class="form-control" placeholder="Début C"></div>
+        <div class="col-3"><input name="semaine_fin_cours" type="number" class="form-control" placeholder="Fin C"></div>
+        <div class="col-3"><input name="semaine_debut_tp" type="number" class="form-control" placeholder="Début TP"></div>
+        <div class="col-3"><input name="semaine_fin_tp" type="number" class="form-control" placeholder="Fin TP"></div>
+        <div class="col-12"><select name="professeur_cours_id" class="form-select"><option value="">Professeur cours</option>{% for p in professeurs %}<option value="{{ p.id }}">{{ p.nom }} {{ p.prenom }}</option>{% endfor %}</select></div>
+        <div class="col-12"><button class="btn btn-primary w-100">Ajouter module</button></div>
+      </form>
+    </div></div>
+  </div>
+  <div class="col-lg-7">
+    <div class="card shadow-sm"><div class="card-body table-responsive">
+      <table class="table table-striped">
+        <thead><tr><th>Code</th><th>Nom</th><th>Semestre</th><th>Filière</th><th>Prof cours</th></tr></thead>
+        <tbody>{% for m in modules %}<tr><td>{{ m.code }}</td><td>{{ m.nom }}</td><td>{{ m.semestre.libelle }}</td><td>{{ m.filiere.nom }}</td><td>{{ m.professeur_cours.nom if m.professeur_cours else '-' }}</td></tr>{% endfor %}</tbody>
+      </table>
+    </div></div>
+  </div>
+</div>
+{% endblock %}

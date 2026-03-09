@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="mb-3">Historique étudiant</h1>
+<div class="card shadow-sm mb-3"><div class="card-body d-flex gap-3 align-items-center">
+  <img src="{{ etudiant.photo }}" class="student-photo">
+  <div>
+    <h5 class="mb-1">{{ etudiant.nom }} {{ etudiant.prenom }}</h5>
+    <div>{{ etudiant.email_academique }}</div>
+    <span class="badge {% if etudiant.statut == 'actif' %}bg-success{% else %}bg-danger{% endif %}">{{ etudiant.statut }}</span>
+  </div>
+</div></div>
+<div class="row g-4">
+  <div class="col-lg-4"><div class="card shadow-sm"><div class="card-body"><h5>Absences</h5><ul class="list-group list-group-flush">{% for a in absences %}<li class="list-group-item">{{ a.seance.date_seance }} · {{ a.seance.module.nom }} · {{ a.seance.type_seance }}</li>{% else %}<li class="list-group-item">Aucune absence</li>{% endfor %}</ul></div></div></div>
+  <div class="col-lg-4"><div class="card shadow-sm"><div class="card-body"><h5>Notes</h5><ul class="list-group list-group-flush">{% for n in notes %}<li class="list-group-item">{{ n.module.nom }} · {{ n.type_note }} : {{ n.valeur }}/20</li>{% else %}<li class="list-group-item">Aucune note</li>{% endfor %}</ul></div></div></div>
+  <div class="col-lg-4"><div class="card shadow-sm"><div class="card-body"><h5>Avertissements</h5><ul class="list-group list-group-flush">{% for a in avertissements %}<li class="list-group-item">{{ a.niveau }}<br><small class="text-muted">{{ a.motif }}</small></li>{% else %}<li class="list-group-item">Aucun avertissement</li>{% endfor %}</ul></div></div></div>
+</div>
+{% endblock %}

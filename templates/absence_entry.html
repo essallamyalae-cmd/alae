@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="mb-3">Saisie des absences</h1>
+<div class="card shadow-sm mb-3"><div class="card-body">
+  <form method="get" class="row g-2 align-items-end">
+    <div class="col-12 col-md-4">
+      <label class="form-label">Module</label>
+      <select name="module_id" class="form-select" onchange="this.form.submit()">
+        <option value="">Choisir module</option>
+        {% for m in modules %}<option value="{{ m.id }}" {% if selected_module_id == m.id %}selected{% endif %}>{{ m.nom }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="col-12 col-md-4">
+      <label class="form-label">Groupe</label>
+      <select name="groupe_id" class="form-select" onchange="this.form.submit()">
+        <option value="">Choisir groupe</option>
+        {% for g in groupes %}<option value="{{ g.id }}" {% if selected_group_id == g.id %}selected{% endif %}>{{ g.nom }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="col-12 col-md-4">
+      <label class="form-label">Séance</label>
+      <select name="seance_id" class="form-select" onchange="this.form.submit()">
+        <option value="">Choisir séance</option>
+        {% for s in seances %}<option value="{{ s.id }}" {% if seance_id == s.id %}selected{% endif %}>{{ s.date_seance }} · {{ s.type_seance }} · {{ s.jour }} C{{ s.creneau }}</option>{% endfor %}
+      </select>
+    </div>
+  </form>
+</div></div>
+
+{% if etudiants and seance_id %}
+<form method="post" class="card shadow-sm">
+  <input type="hidden" name="module_id" value="{{ selected_module_id }}">
+  <input type="hidden" name="groupe_id" value="{{ selected_group_id }}">
+  <input type="hidden" name="seance_id" value="{{ seance_id }}">
+  <div class="card-body">
+    <div class="list-group mobile-drive-list">
+      {% for e in etudiants %}
+      <label class="list-group-item d-flex align-items-center justify-content-between gap-3">
+        <div class="d-flex align-items-center gap-3">
+          <img src="{{ e.photo }}" class="student-photo">
+          <div>
+            <div class="fw-semibold">{{ e.nom }} {{ e.prenom }}</div>
+            <div class="small text-muted">{{ e.email_academique }}</div>
+          </div>
+        </div>
+        <div class="form-check form-switch m-0">
+          <input class="form-check-input big-switch" type="checkbox" name="absents" value="{{ e.id }}" {% if e.id in checked_ids %}checked{% endif %}>
+          <span class="small text-muted">Absent</span>
+        </div>
+      </label>
+      {% endfor %}
+    </div>
+    <button class="btn btn-primary mt-3 w-100 w-md-auto">Enregistrer les absences</button>
+  </div>
+</form>
+{% endif %}
+{% endblock %}

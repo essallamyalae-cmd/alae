@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="mb-3">Gestion des groupes</h1>
+<div class="row g-4">
+  <div class="col-lg-4"><div class="card shadow-sm"><div class="card-body">
+    <form method="post" class="row g-2">
+      <div class="col-12"><input name="nom" class="form-control" placeholder="Nom groupe" required></div>
+      <div class="col-12"><select name="filiere_id" class="form-select" required><option value="">Filière</option>{% for f in filieres %}<option value="{{ f.id }}">{{ f.nom }}</option>{% endfor %}</select></div>
+      <div class="col-12"><select name="annee_id" class="form-select" required><option value="">Année</option>{% for a in annees %}<option value="{{ a.id }}">{{ a.libelle }}</option>{% endfor %}</select></div>
+      <div class="col-12"><button class="btn btn-primary w-100">Ajouter groupe</button></div>
+    </form>
+  </div></div></div>
+  <div class="col-lg-8"><div class="card shadow-sm"><div class="card-body table-responsive">
+    <table class="table"><thead><tr><th>Nom</th><th>Filière</th><th>Année</th></tr></thead><tbody>{% for g in groupes %}<tr><td>{{ g.nom }}</td><td>{{ g.filiere.nom }}</td><td>{{ g.annee.libelle }}</td></tr>{% endfor %}</tbody></table>
+  </div></div></div>
+</div>
+{% endblock %}

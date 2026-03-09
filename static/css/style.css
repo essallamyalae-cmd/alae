@@ -1,0 +1,12 @@
+body { background: #f6f8fb; }
+.login-body { background: linear-gradient(135deg, #0d6efd 0%, #6f42c1 100%); }
+.card { border: none; border-radius: 1rem; }
+.stat-card { background: white; border-left: 6px solid #0d6efd; }
+.stat-card.danger { border-left-color: #dc3545; }
+.student-photo { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; }
+.mobile-drive-list .list-group-item { border-radius: .9rem; margin-bottom: .7rem; border: 1px solid #e7ebf3; }
+.big-switch { transform: scale(1.35); }
+@media (max-width: 768px) {
+  h1 { font-size: 1.5rem; }
+  .navbar-brand { font-size: 1rem; }
+}
